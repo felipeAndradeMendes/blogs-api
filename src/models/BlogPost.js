@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
 
   BlogPost.associate = (models) => {
     BlogPost.hasOne(models.User, {
-      foreignKey: 'userId',
+      foreignKey: 'id',
       as: 'users',
     });
   };
