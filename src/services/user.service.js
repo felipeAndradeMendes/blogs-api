@@ -36,8 +36,26 @@ const getAllUsers = async () => {
   return users;
 };
 
+const getUserById = async (id) => {
+  const user = await User.findOne({
+    where: { id },
+    attributes: { exclude: ['password'] },
+  });
+  console.log('USER BY ID:', user);
+
+  if (!user) {
+    return {
+      type: 'error',
+      message: 'User does not exist',
+    };
+  }
+
+  return user;
+};
+
 module.exports = {
   createUser,
   verifyExistingEmail,
   getAllUsers,
+  getUserById,
 };
