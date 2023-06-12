@@ -7,10 +7,11 @@ const validateJWT = (req, res, next) => {
     return res.status(401).json({ message: 'Token not found' });
   }
 
-  const validation = validateToken(token);
-
-  if (!validation) {
-    return res.status(401).json({ message: 'Expired or invalid token' });
+  try {
+    const validation = validateToken(token);
+    console.log('TOKEN MENSAGEM:', validation);    
+  } catch (error) {
+    return res.status(401).json({ message: 'Expired or invalid token' });    
   }
 
   next();

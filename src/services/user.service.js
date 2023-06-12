@@ -28,7 +28,16 @@ const createUser = async (userObj) => {
   return newUser;
 };
 
+const getAllUsers = async () => {
+  const users = await User.findAll({
+    attributes: { exclude: ['password'] },
+  });
+
+  return users;
+};
+
 module.exports = {
   createUser,
   verifyExistingEmail,
+  getAllUsers,
 };
