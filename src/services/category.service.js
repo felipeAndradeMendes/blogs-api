@@ -14,7 +14,18 @@ const getAllCategories = async () => {
   return categories;
 };
 
+const getCategoryById = async (categoryId) => {
+  const categoryPromises = categoryId.map((category) => Category.findOne({
+      where: { id: category },
+    }));
+
+  const result = await Promise.all(categoryPromises);
+
+  return result;
+};
+
 module.exports = {
   addCategory,
   getAllCategories,
+  getCategoryById,
 };
