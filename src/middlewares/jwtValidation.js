@@ -9,7 +9,9 @@ const validateJWT = (req, res, next) => {
 
   try {
     const validation = validateToken(token);
-    console.log('TOKEN MENSAGEM:', validation);    
+    // console.log('TOKEN MENSAGEM:', validation);  
+    req.user = validation.data;  
+    // console.log('VALIDATION DATA:', validation.data);
     // NEXT ESTAVA DESPOIS DO TRY CATCH, SE DER ERRO, DESFAZER;
     next();
   } catch (error) {
