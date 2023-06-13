@@ -6,5 +6,6 @@ const { validateCategory } = require('../middlewares/categoryValidation');
 const router = express.Router();
 
 router.post('/', validateJWT, validateCategory, categoryController.addCategory);
+router.get('/', validateJWT, categoryController.getAllCategories);
 
 module.exports = router;
