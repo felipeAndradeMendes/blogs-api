@@ -6,5 +6,6 @@ const { validateCategoryArrayFormat } = require('../middlewares/categoryValidati
 const router = express.Router();
 
 router.post('/', validateJWT, validateCategoryArrayFormat, blogPostController.addPost);
+router.get('/', validateJWT, blogPostController.getAllBlogPosts);
 
 module.exports = router;

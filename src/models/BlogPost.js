@@ -28,10 +28,11 @@ module.exports = (sequelize, DataTypes) => {
     updatedAt: 'updated', 
   });
 
+  // ATENÇÃO! mudei o as de users pra user
   BlogPost.associate = (models) => {
     BlogPost.belongsTo(models.User, {
       foreignKey: 'id',
-      as: 'users',
+      as: 'user',
     });
   };
 

@@ -4,10 +4,10 @@ const addPost = async (req, res) => {
   try {
     const { categoryIds } = req.body;
     const verifyCategories = await categoryService.getCategoryById(categoryIds);
+    
     if (verifyCategories.some((category) => category === null)) {
       return res.status(400).json({ message: 'one or more "categoryIds" not found' });
     }
-    console.log('VERIFY CATEGORIES:', verifyCategories);
 
     const { id } = req.user;
     const postInfos = req.body;
@@ -21,11 +21,23 @@ const addPost = async (req, res) => {
   }
 };
 
+const getAllBlogPosts = async (req, res) => {
+  try {
+    const posts = await blogPostService.getAllBlogPosts();
+    
+    return res.status(200).json(posts);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error.message);
+  }
+};
+
 module.exports = {
   addPost,
+  getAllBlogPosts,
 };
 
 // OK! 1- resolver timestamps de criação e update 
 // OK! 2- Usar req.user para armazenar user id, vindo do token
 // OK! 3- fazer atualização da tabela post_categories tb, ver transactions
-// 4- implementar Joi para checar inputs
+// OK! 4- implementar Joi para checar inputs

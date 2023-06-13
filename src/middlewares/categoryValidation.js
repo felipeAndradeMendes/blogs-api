@@ -12,6 +12,7 @@ const validateCategory = (req, res, next) => {
   next();
 };
 
+// Validação da chave categoryIds da rota POST de BlogPost;
 const validateCategoryArrayFormat = async (req, res, next) => {
   const newPostInputs = req.body;
   const { error } = newPostSchema.validate(newPostInputs);

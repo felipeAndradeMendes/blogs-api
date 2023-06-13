@@ -13,6 +13,7 @@ const categorySchema = Joi.object({
   name: Joi.string().required(),
 });
 
+// Testa inputs da rota POST de BlogPost, foco na chave categoryIds que deve ser um array;
 const newPostSchema = Joi.object({
   title: Joi.string().required(),
   content: Joi.string().required(),
