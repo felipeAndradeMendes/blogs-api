@@ -54,8 +54,28 @@ const getBlogPostById = async (id) => {
   return post;
 };
 
+const updateBlogPost = async (id, title, content) => {
+  const [updatedPost] = await BlogPost.update(
+    { title, content },
+    { where: { id } },    
+  );
+  console.log('UPDATED POST:', updatedPost);
+
+  return updatedPost;
+};
+
+const verifyPostUser = async (postId, userId) => {
+  const post = await BlogPost.findOne({
+    where: { id: postId },
+  });
+
+  return post.userId === userId;
+};
+
 module.exports = {
   addPost,
   getAllBlogPosts,
   getBlogPostById,
+  updateBlogPost,
+  verifyPostUser,
 };

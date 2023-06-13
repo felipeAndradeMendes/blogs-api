@@ -1,4 +1,5 @@
 const { blogPostService, categoryService } = require('../services');
+const { verifyPostUser } = require('../services/blogPost.service');
 
 const addPost = async (req, res) => {
   try {
@@ -48,10 +49,36 @@ const getBlogPostById = async (req, res) => {
  }
 };
 
+const updateBlogPost = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { id } = req.params;
+    const { title, content } = req.body;
+
+    if (!await verifyPostUser(id, userId)) {
+      return res.status(401).json({ message: 'Unauthorized user' });
+    }
+
+    const updatePost = await blogPostService.updateBlogPost(id, title, content);
+
+    if (updatePost === 0) {
+      return res.status(500).json({ message: 'Post escolhido não foi atualizado' });
+    }
+
+    const newPost = await blogPostService.getBlogPostById(id);
+
+    return res.status(200).json(newPost);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error.message);
+  }
+};
+
 module.exports = {
   addPost,
   getAllBlogPosts,
   getBlogPostById,
+  updateBlogPost,
 };
 
 // OK! 1- resolver timestamps de criação e update 
