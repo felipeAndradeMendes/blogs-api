@@ -10,11 +10,11 @@ const validateJWT = (req, res, next) => {
   try {
     const validation = validateToken(token);
     console.log('TOKEN MENSAGEM:', validation);    
+    // NEXT ESTAVA DESPOIS DO TRY CATCH, SE DER ERRO, DESFAZER;
+    next();
   } catch (error) {
     return res.status(401).json({ message: 'Expired or invalid token' });    
   }
-
-  next();
 };
 
 module.exports = {

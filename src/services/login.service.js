@@ -1,11 +1,11 @@
 const { User } = require('../models');
 
 const login = async ({ email, password }) => {
-  const user = await User.findAll({
+  const user = await User.findOne({
     where: { email, password },    
   });
 
-  if (!user.length) {
+  if (!user) {
     return {
       type: 'error',
       message: 'Invalid fields',
