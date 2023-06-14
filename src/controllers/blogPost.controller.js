@@ -96,12 +96,25 @@ const deletePost = async (req, res) => {
   }
 };
 
+const searchPost = async (req, res) => {
+  try {
+    const { q } = req.query;
+    const posts = await blogPostService.searchPost(q);
+
+    return res.status(200).json(posts);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error.message);
+  }
+};
+
 module.exports = {
   addPost,
   getAllBlogPosts,
   getBlogPostById,
   updateBlogPost,
   deletePost,
+  searchPost,
 };
 
 // OK! 1- resolver timestamps de criação e update 
