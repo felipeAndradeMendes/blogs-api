@@ -74,11 +74,34 @@ const updateBlogPost = async (req, res) => {
   }
 };
 
+const deletePost = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { id } = req.params;
+
+    if (!await blogPostService.getBlogPostById(id)) {
+      return res.status(404).json({ message: 'Post does not exist' });
+    }
+    
+    if (!await verifyPostUser(id, userId)) {
+      return res.status(401).json({ message: 'Unauthorized user' }); 
+    }
+
+    await blogPostService.deletePost(id);
+
+    return res.status(204).end();
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error.message);
+  }
+};
+
 module.exports = {
   addPost,
   getAllBlogPosts,
   getBlogPostById,
   updateBlogPost,
+  deletePost,
 };
 
 // OK! 1- resolver timestamps de criação e update 

@@ -72,10 +72,19 @@ const verifyPostUser = async (postId, userId) => {
   return post.userId === userId;
 };
 
+const deletePost = async (id) => {
+  const post = await BlogPost.destroy({
+    where: { id },
+  });
+
+  return post;
+};
+
 module.exports = {
   addPost,
   getAllBlogPosts,
   getBlogPostById,
   updateBlogPost,
   verifyPostUser,
+  deletePost,
 };
