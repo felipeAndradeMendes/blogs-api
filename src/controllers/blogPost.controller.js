@@ -39,6 +39,7 @@ const getBlogPostById = async (req, res) => {
   const post = await blogPostService.getBlogPostById(id);
 
   if (!post) {
+    console.log('ROTA POST BY ID');
     return res.status(404).json({ message: 'Post does not exist' });
   }
 
@@ -80,6 +81,7 @@ const deletePost = async (req, res) => {
     const { id } = req.params;
 
     if (!await blogPostService.getBlogPostById(id)) {
+    console.log('ROTA DELETE POST');
       return res.status(404).json({ message: 'Post does not exist' });
     }
     
